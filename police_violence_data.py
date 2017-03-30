@@ -1,4 +1,6 @@
 from flask import Flask, request, jsonify
+import pandas as pd
+
 app = Flask(__name__)
 
 
@@ -10,10 +12,14 @@ data_store = {'incidents' : [
 	{'name':'jim','age':99,'gender':'m','img_url':'https://i.kinja-img.com/gawker-media/image/upload/s--LJ4kR8Aa--/c_scale,fl_progressive,q_80,w_800/197gkt72jr0e1jpg.jpg'}
 	]}
 
+df = pd.read_csv('police_killings_clean.csv')
 
-def grab_incidents(zipcode):
-	## does real work
-	return data_store
+# Zipcodes is a list, e.g., [11238,90601]
+def get_incidents(zipcodes):
+	print(zipcodes)
+	zipcodes = [int(zipcode) for zipcode in zipcodes]
+	incidents = list(df[df.zipcode.isin(zipcodes)].T.to_dict().values())
+	return {'incidents':incidents}
 
 
 @app.route("/")
@@ -22,8 +28,8 @@ def hello():
 
 @app.route("/police_data", methods=['GET'])
 def get_police_data():
-	zipcode = request.args.get('zipcode')
-	incidents = grab_incidents(zipcode)
+	zipcode = request.args.getlist('zipcode')
+	incidents = get_incidents(zipcode)
 	return jsonify(incidents)
 
 if __name__ == "__main__":
