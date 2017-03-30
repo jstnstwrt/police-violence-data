@@ -12,7 +12,7 @@ data_store = {'incidents' : [
 	{'name':'jim','age':99,'gender':'m','img_url':'https://i.kinja-img.com/gawker-media/image/upload/s--LJ4kR8Aa--/c_scale,fl_progressive,q_80,w_800/197gkt72jr0e1jpg.jpg'}
 	]}
 
-df = pd.read_csv('police_killings_clean.csv')
+df = pd.read_csv('~/police-violence-data/police_killings_clean.csv')
 
 # Zipcodes is a list, e.g., [11238,90601]
 def get_incidents(zipcodes):
