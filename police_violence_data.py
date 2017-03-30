@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 import pandas as pd
 
@@ -13,6 +14,7 @@ data_store = {'incidents' : [
 	]}
 
 df = pd.read_csv('~/police-violence-data/police_killings_clean.csv')
+print(os.getcwd())
 
 # Zipcodes is a list, e.g., [11238,90601]
 def get_incidents(zipcodes):
