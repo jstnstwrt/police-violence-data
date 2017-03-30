@@ -6,4 +6,4 @@ logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0, '/var/www/html/police-violence-data')
 print(sys.executable)
 
-from flask_app import app as application
+from police-violence-data import app as application
